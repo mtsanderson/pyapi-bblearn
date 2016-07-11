@@ -68,18 +68,17 @@ class Learn(object):
             print 'Errar'
 
     def delete_course(self, course_id, removeFiles=True):
-        req_url = '{0}/:externalId:/{1}'.format(self.courses_endpoint, course_id)
+        req_url = '{0}/externalId:{1}'.format(self.courses_endpoint, course_id)
         auth_string = 'Bearer {0}'.format(self.token)
         header_data = {'Authorization': auth_string}
 
         data = {'removeFiles': removeFiles}
 
-        r = requests.get(req_url, params=data, headers=header_data, verify=True)
+        print req_url
 
-        if r.status_code == 200:
-            return r.json()
-        else:
-            print 'Errar'
+        r = requests.delete(req_url, params=data, headers=header_data, verify=True)
+
+        return r.json()
 
     def get_terms(self, offset=0, limit=10, fields=None):
         req_url = self.terms_endpoint
@@ -96,7 +95,7 @@ class Learn(object):
             print 'Errar'
 
     def get_term_by_id(self, term_id, fields=None):
-        req_url = '{0}/:externalId:{1}'.format(self.terms_endpoint, term_id)
+        req_url = '{0}/externalId:{1}'.format(self.terms_endpoint, term_id)
         auth_string = 'Bearer {0}'.format(self.token)
         header_data = {'Authorization': auth_string}
 
