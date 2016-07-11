@@ -132,6 +132,28 @@ class Learn(object):
         else:
             print 'Errar'
 
+    def create_user(self, user_json, fields=None):
+        req_url = self.users_endpoint
+        auth_string = 'Bearer {0}'.format(self.token)
+        header_data = {'Authorization': auth_string}
+
+        data = {'fields': fields}
+
+        r = requests.post(req_url, data=user_json, params=data, headers=header_data, verify=True)
+
+        return r.json()
+
+    def delete_user(self, user_id, removeFiles=True):
+        req_url = '{0}/userName:{1}'.format(self.users_endpoint, user_id)
+        auth_string = 'Bearer {0}'.format(self.token)
+        header_data = {'Authorization': auth_string}
+
+        data = {'fields': fields}
+
+        r = requests.delete(req_url, params=data, headers=header_data, verify=True)
+
+        return r.json()
+
     def get_user(self, user_id, fields=None):
         req_url = '{0}/userName:{1}'.format(self.users_endpoint, user_id)
         auth_string = 'Bearer {0}'.format(self.token)
