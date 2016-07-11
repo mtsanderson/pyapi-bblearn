@@ -15,7 +15,7 @@ LearnApi.request_token()
 # print LearnApi.get_system_version()
 
 # Get a user by username, only returning the user's uuid and studentId fields
-user = LearnApi.get_user_by_username('user', fields=('uuid, studentId'))
+user = LearnApi.get_user('user', fields=('uuid, studentId'))
 
 print user
 

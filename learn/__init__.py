@@ -39,7 +39,7 @@ class Learn(object):
         else:
             print 'Errar'
 
-    def get_course_by_courseid(self, course_id, fields=None):
+    def get_course(self, course_id, fields=None):
         req_url = '{0}/courseId:{1}'.format(self.courses_endpoint, course_id)
         auth_string = 'Bearer {0}'.format(self.token)
         header_data = {'Authorization': auth_string}
@@ -104,7 +104,7 @@ class Learn(object):
         else:
             print 'Errar'
 
-    def get_term_by_id(self, term_id, fields=None):
+    def get_term(self, term_id, fields=None):
         req_url = '{0}/externalId:{1}'.format(self.terms_endpoint, term_id)
         auth_string = 'Bearer {0}'.format(self.token)
         header_data = {'Authorization': auth_string}
@@ -132,7 +132,7 @@ class Learn(object):
         else:
             print 'Errar'
 
-    def get_user_by_username(self, user_id, fields=None):
+    def get_user(self, user_id, fields=None):
         req_url = '{0}/userName:{1}'.format(self.users_endpoint, user_id)
         auth_string = 'Bearer {0}'.format(self.token)
         header_data = {'Authorization': auth_string}
