@@ -48,10 +48,7 @@ class Learn(object):
 
         r = requests.get(req_url, params=data, headers=header_data, verify=True)
 
-        if r.status_code == 200:
-            return r.json()
-        else:
-            print 'Errar'
+        return r.json()
 
     def get_courses(self, offset=0, limit=10, fields=None):
         req_url = self.courses_endpoint
@@ -66,6 +63,19 @@ class Learn(object):
             return r.json()
         else:
             print 'Errar'
+
+    def create_course(self, course_json, fields=None):
+        req_url = self.courses_endpoint
+        auth_string = 'Bearer {0}'.format(self.token)
+        header_data = {'Authorization': auth_string}
+
+        data = {'fields': fields}
+
+        print req_url
+
+        r = requests.post(req_url, data=course_json, params=data, headers=header_data, verify=True)
+
+        return r.json()
 
     def delete_course(self, course_id, removeFiles=True):
         req_url = '{0}/externalId:{1}'.format(self.courses_endpoint, course_id)
