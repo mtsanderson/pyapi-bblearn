@@ -67,6 +67,20 @@ class Learn(object):
         else:
             print 'Errar'
 
+    def delete_course(self, course_id, removeFiles=True):
+        req_url = '{0}/:externalId:/{1}'.format(self.courses_endpoint, course_id)
+        auth_string = 'Bearer {0}'.format(self.token)
+        header_data = {'Authorization': auth_string}
+
+        data = {'removeFiles': removeFiles}
+
+        r = requests.get(req_url, params=data, headers=header_data, verify=True)
+
+        if r.status_code == 200:
+            return r.json()
+        else:
+            print 'Errar'
+
     def get_terms(self, offset=0, limit=10, fields=None):
         req_url = self.terms_endpoint
         auth_string = 'Bearer {0}'.format(self.token)
