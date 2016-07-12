@@ -34,10 +34,7 @@ class Learn(object):
 
         r = requests.get(req_url, headers=self.headers, verify=True)
 
-        if r.status_code == 200:
-            return r.json()
-        else:
-            print 'Errar'
+        return r.json()
 
     def get_course(self, course_id, fields=None):
         req_url = '{0}/courseId:{1}'.format(self.courses_endpoint, course_id)
@@ -55,10 +52,7 @@ class Learn(object):
 
         r = requests.get(req_url, params=data, headers=self.headers, verify=True)
 
-        if r.status_code == 200:
-            return r.json()
-        else:
-            print 'Errar'
+        return r.json()
 
     def create_course(self, course_json, fields=None):
         req_url = self.courses_endpoint
@@ -89,10 +83,7 @@ class Learn(object):
 
         r = requests.get(req_url, params=data, headers=self.headers, verify=True)
 
-        if r.status_code == 200:
-            return r.json()
-        else:
-            print 'Errar'
+        return r.json()
 
     def get_term(self, term_id, fields=None):
         req_url = '{0}/externalId:{1}'.format(self.terms_endpoint, term_id)
@@ -101,10 +92,7 @@ class Learn(object):
 
         r = requests.get(req_url, params=data, headers=self.headers, verify=True)
 
-        if r.status_code == 200:
-            return r.json()
-        else:
-            print 'Bad response code'
+        return r.json()
 
     def get_users(self, offset=0, limit=10, fields=None):
         req_url = self.users_endpoint
@@ -113,10 +101,7 @@ class Learn(object):
 
         r = requests.get(req_url, params=data, headers=self.headers, verify=True)
 
-        if r.status_code == 200:
-            return r.json()
-        else:
-            print 'Errar'
+        return r.json()
 
     def create_user(self, user_json, fields=None):
         req_url = self.users_endpoint
@@ -143,7 +128,4 @@ class Learn(object):
 
         r = requests.get(req_url, params=data, headers=self.headers, verify=True)
 
-        if r.status_code == 200:
-            return r.json()
-        else:
-            print 'Bad response code'
+        return r.json()
