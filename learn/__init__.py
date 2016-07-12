@@ -14,6 +14,7 @@ class Learn(object):
         self.users_endpoint = '{0}/users'.format(self.api_base_url)
 
         self.token = None
+        self.headers = None
 
     def request_token(self):
         data = {'grant_type': 'client_credentials'}
@@ -24,15 +25,14 @@ class Learn(object):
 
             if r.status_code == 200:
                 self.token = r.json()['access_token']
+                self.headers = {'Authorization': 'Bearer {0}'.format(self.token)}
             else:
                 print 'Errar'
 
     def get_system_version(self):
         req_url = self.version_endpoint
-        auth_string = 'Bearer {0}'.format(self.token)
-        header_data = {'Authorization': auth_string}
 
-        r = requests.get(req_url, headers=header_data, verify=True)
+        r = requests.get(req_url, headers=self.headers, verify=True)
 
         if r.status_code == 200:
             return r.json()
@@ -41,23 +41,19 @@ class Learn(object):
 
     def get_course(self, course_id, fields=None):
         req_url = '{0}/courseId:{1}'.format(self.courses_endpoint, course_id)
-        auth_string = 'Bearer {0}'.format(self.token)
-        header_data = {'Authorization': auth_string}
 
         data = {'fields': fields}
 
-        r = requests.get(req_url, params=data, headers=header_data, verify=True)
+        r = requests.get(req_url, params=data, headers=self.headers, verify=True)
 
         return r.json()
 
     def get_courses(self, offset=0, limit=10, fields=None):
         req_url = self.courses_endpoint
-        auth_string = 'Bearer {0}'.format(self.token)
-        header_data = {'Authorization': auth_string}
 
         data = {'offset': offset, 'limit': limit, 'fields': fields}
 
-        r = requests.get(req_url, params=data, headers=header_data, verify=True)
+        r = requests.get(req_url, params=data, headers=self.headers, verify=True)
 
         if r.status_code == 200:
             return r.json()
@@ -66,38 +62,32 @@ class Learn(object):
 
     def create_course(self, course_json, fields=None):
         req_url = self.courses_endpoint
-        auth_string = 'Bearer {0}'.format(self.token)
-        header_data = {'Authorization': auth_string}
 
         data = {'fields': fields}
 
         print req_url
 
-        r = requests.post(req_url, data=course_json, params=data, headers=header_data, verify=True)
+        r = requests.post(req_url, data=course_json, params=data, headers=self.headers, verify=True)
 
         return r.json()
 
     def delete_course(self, course_id, removeFiles=True):
         req_url = '{0}/externalId:{1}'.format(self.courses_endpoint, course_id)
-        auth_string = 'Bearer {0}'.format(self.token)
-        header_data = {'Authorization': auth_string}
 
         data = {'removeFiles': removeFiles}
 
         print req_url
 
-        r = requests.delete(req_url, params=data, headers=header_data, verify=True)
+        r = requests.delete(req_url, params=data, headers=self.headers, verify=True)
 
         return r.json()
 
     def get_terms(self, offset=0, limit=10, fields=None):
         req_url = self.terms_endpoint
-        auth_string = 'Bearer {0}'.format(self.token)
-        header_data = {'Authorization': auth_string}
 
         data = {'offset': offset, 'limit': limit, 'fields': fields}
 
-        r = requests.get(req_url, params=data, headers=header_data, verify=True)
+        r = requests.get(req_url, params=data, headers=self.headers, verify=True)
 
         if r.status_code == 200:
             return r.json()
@@ -106,12 +96,10 @@ class Learn(object):
 
     def get_term(self, term_id, fields=None):
         req_url = '{0}/externalId:{1}'.format(self.terms_endpoint, term_id)
-        auth_string = 'Bearer {0}'.format(self.token)
-        header_data = {'Authorization': auth_string}
 
         data = {'fields': fields}
 
-        r = requests.get(req_url, params=data, headers=header_data, verify=True)
+        r = requests.get(req_url, params=data, headers=self.headers, verify=True)
 
         if r.status_code == 200:
             return r.json()
@@ -120,12 +108,10 @@ class Learn(object):
 
     def get_users(self, offset=0, limit=10, fields=None):
         req_url = self.users_endpoint
-        auth_string = 'Bearer {0}'.format(self.token)
-        header_data = {'Authorization': auth_string}
 
         data = {'offset': offset, 'limit': limit, 'fields': fields}
 
-        r = requests.get(req_url, params=data, headers=header_data, verify=True)
+        r = requests.get(req_url, params=data, headers=self.headers, verify=True)
 
         if r.status_code == 200:
             return r.json()
@@ -134,34 +120,28 @@ class Learn(object):
 
     def create_user(self, user_json, fields=None):
         req_url = self.users_endpoint
-        auth_string = 'Bearer {0}'.format(self.token)
-        header_data = {'Authorization': auth_string}
 
         data = {'fields': fields}
 
-        r = requests.post(req_url, data=user_json, params=data, headers=header_data, verify=True)
+        r = requests.post(req_url, data=user_json, params=data, headers=self.headers, verify=True)
 
         return r.json()
 
     def delete_user(self, user_id, removeFiles=True):
         req_url = '{0}/userName:{1}'.format(self.users_endpoint, user_id)
-        auth_string = 'Bearer {0}'.format(self.token)
-        header_data = {'Authorization': auth_string}
 
         data = {'fields': fields}
 
-        r = requests.delete(req_url, params=data, headers=header_data, verify=True)
+        r = requests.delete(req_url, params=data, headers=self.headers, verify=True)
 
         return r.json()
 
     def get_user(self, user_id, fields=None):
         req_url = '{0}/userName:{1}'.format(self.users_endpoint, user_id)
-        auth_string = 'Bearer {0}'.format(self.token)
-        header_data = {'Authorization': auth_string}
 
         data = {'fields': fields}
 
-        r = requests.get(req_url, params=data, headers=header_data, verify=True)
+        r = requests.get(req_url, params=data, headers=self.headers, verify=True)
 
         if r.status_code == 200:
             return r.json()
